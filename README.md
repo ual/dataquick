@@ -14,7 +14,7 @@ We obtained a large dataset of parcel and sales transaction records from Dataqui
 • Christopher LaPage, Dataquick account manager – `clapage@dataquick.com`  
 • Juan Qui, Dataquick fulfillment contact – `jqui@dataquick.com`  
 
-**Documentation from Dataquick**    
+**Documentation from Dataquick**  
 • "Layout" spreadsheets with database schema information  
 • "Totals Report" spreadsheets with record counts by county  
 • "Catalog/Data Dictionary" spreadsheet with more detailed field definitions  
@@ -36,7 +36,7 @@ We obtained a large dataset of parcel and sales transaction records from Dataqui
 #### Contents of raw data files
 
 **Assessor**  
-• one record per legal property
+• one record per legal property  
 • most recent snapshot, from 2013 or 2014 depending on the county  
 • provided as one large fixed-width text file (dated 5-28-2014)  
 • identical data provided as sequence of smaller tab-delimited files (dated 7-11-2014)  
