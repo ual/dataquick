@@ -9,7 +9,7 @@ We obtained a large dataset of parcel and sales transaction records from Dataqui
 
 **Contacts**  
 • Miriam Zuk, project manager – `mzuk@berkeley.edu`  
-• Sam Maurer, performed the original data parsing – `maurer@berkeley.edu`  
+• Sam Maurer, performed the initial data parsing – `maurer@berkeley.edu`  
 • Courtney Smith, ARB contact – `cesmith@arb.ca.gov`  
 • Christopher LaPage, Dataquick account manager – `clapage@dataquick.com`  
 • Juan Qui, Dataquick fulfillment contact – `jqui@dataquick.com`  
