@@ -73,7 +73,7 @@ Each row of raw data is read into Python and parsed into fields according to the
 
 **Procedure for loading data into Postgres**
 
-For each table, a Postgres schema is created to match the field names and data types in the Dataquick layout file. To account for differences between Dataquick’s SQL Server system and Postgres, data types are changed as follows: `tinyint-> smallint`, `bit-> boolean`, and `datetime-> timestamp`. 
+For each table, a Postgres schema is created to match the field names and data types in the Dataquick layout file. To account for differences between Dataquick’s SQL Server system and Postgres, data types are changed as follows: `tinyint` to `smallint`, `bit` to `boolean`, and `datetime` to `timestamp`. 
 
 Each row of raw data is read into Python and parsed into fields according to the tab delimiters or the character lengths in the layout file. Trailing spaces are removed, and some minimal formatting is done so that the raw text will be parsed correctly by Postgres: strings, booleans, and timestamps are placed inside quotes, and empty numeric values are replaced with `null`. The data values are fed into the database using a separate `insert` statement for each record. This is slow (~10 hours per table) but robust and easy to troubleshoot. 
 
