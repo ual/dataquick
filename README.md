@@ -26,7 +26,8 @@ We obtained a large dataset of parcel and sales transaction records from Dataqui
 • URL: `paris.ual.berkeley.edu`  
 • databse: `california`  
 • schema: `dataquick`  
-• tables: `assessor` & `sales` (`assessorhist` & `foreclosure` still in progress)
+• tables loaded as of 9/30: `assessor`, `sales`  
+• tables in progress: `assessorhist`, `foreclosure`
 2. Raw data files and CSV county extracts are in a shared folder on Box (contact Miriam Zuk for access)
 3. Raw data files are also available from Dataquick by FTP  
 • URL: `ftp.dataquick.com`  
