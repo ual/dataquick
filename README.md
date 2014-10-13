@@ -22,17 +22,17 @@ We obtained a large dataset of parcel and sales transaction records from Dataqui
 
 #### Ways to access the data
 
-1. Data is in Postgres on the UAL Paris server  
-• URL: `paris.ual.berkeley.edu`  
-• databse: `california`  
-• schema: `dataquick`  
-• tables loaded as of 9/30: `assessor`, `sales`  
-• tables in progress: `assessorhist`, `foreclosure`
+1. Data is in Postgres on the UAL Tehran server  
+• URL: `tehran.ual.berkeley.edu`  
+• databse: `dataquick`  
+• schema: `master` for the master version of the data tables  
+• login: `dataquick_user`, password: `ucbdq`  
+• tables loaded as of 10/12: `assessor`, `sales`  
+• other tables to come: `assessorhist`, `foreclosure`
 2. Raw data files and CSV county extracts are in a shared folder on Box (contact Miriam Zuk for access)
 3. Raw data files are also available from Dataquick by FTP  
 • URL: `ftp.dataquick.com`  
-• username: `ucbrkly`  
-• password: `2a3jsv13`
+• login: `ucbrkly`, password: `2a3jsv13`
 
 #### Contents of raw data files
 
