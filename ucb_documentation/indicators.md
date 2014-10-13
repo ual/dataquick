@@ -19,6 +19,7 @@ I. Use conversions
 J. New construction
 
 
+==========
 #### Output
 
 • Indicators are saved as CSV files with one row per census tract  
@@ -35,6 +36,7 @@ https://github.com/ual/dataquick/tree/master/maurer_code
 https://github.com/ual/dataquick/tree/master/blanchard_code
 
 
+==========
 #### General to-do items
 
 • Are the Dataquick census tract assignments correct?  
@@ -42,6 +44,7 @@ https://github.com/ual/dataquick/tree/master/blanchard_code
 • Do assessor tables include block groups? They're in the data dictionary
 
 
+==========
 #### A. Number of properties by type
 
 Based on Dataquick standard use code (`use_code_std`) in assessor tables. First look at high-level categories (commercial, industrial, residential, etc) and then the sub-categories. Do for each year if possible, or else 2004, 2006, 2010, 2014.
@@ -51,6 +54,7 @@ Based on Dataquick standard use code (`use_code_std`) in assessor tables. First 
 **Next steps**
 
 
+==========
 #### B. Number of sales
 
 For residential and commercial properties separately. Filter for arms-length transactions. Look at each year since 1988, or start with 2004, 2006, 2010, 2014 if simpler.
@@ -60,6 +64,7 @@ For residential and commercial properties separately. Filter for arms-length tra
 **Next steps**
 
 
+==========
 #### C. Median sale price
 
 Use transfer value field (`sr_val_transfer`) in sales table. Filter for arms-length transactions. Calculate for residential and commercial properties separately. Unit is price per square foot (square footage is in the assessor table). 
@@ -82,6 +87,7 @@ This is a good first pass but needs to be updated. Includes median residential s
 • Can we do time-series analysis of individual properties?
 
 
+==========
 #### D. Ratio of improvement value to land value
 
 Use assessment value fields in the assessor tables. Filter for properties that were sold in the prior calendar year to ensure that appraised values are current. Calculate annually, or use 2004, 2006, 2010, 2014 if that's too much. Commercial as well as residential. 
@@ -114,6 +120,7 @@ Based on these figures plus a quick look at the underlying data, here's how coun
 • Add commercial properties
 
 
+==========
 #### E. Median square footage
 
 For all residential properties. And separately to only properties that were sold. Match sales to subsequent assessor year. 
@@ -123,6 +130,7 @@ For all residential properties. And separately to only properties that were sold
 **Next steps**
 
 
+==========
 #### F. Median number of rooms and bedrooms
 
 For all residential properties. And separately to only properties that were sold. Match sales to subsequent assessor year. 
@@ -132,6 +140,7 @@ For all residential properties. And separately to only properties that were sold
 **Next steps**
 
 
+==========
 #### G. Absentee ownership
 
 For all residential properties in 2004 and 2014, plus percent change. Start with `sa_site_mail_same` field from current and historical assessor tables. 
@@ -141,6 +150,7 @@ For all residential properties in 2004 and 2014, plus percent change. Start with
 **Next steps**
 
 
+==========
 #### H. Property flips
 
 Count of properties that were sold 2 or more times within 2 years. Filter for arms-length transactions.
@@ -150,6 +160,7 @@ Count of properties that were sold 2 or more times within 2 years. Filter for ar
 **Next steps**
 
 
+==========
 #### I. Use conversions
 
 We're interested in condo conversions, residential to commercial, multifamily to single family, rental to ownership. 
@@ -159,7 +170,8 @@ We're interested in condo conversions, residential to commercial, multifamily to
 **Next steps**
 
 
-#### F. New construction
+==========
+#### J. New construction
 
 Assessor tables include a year built field.
 
