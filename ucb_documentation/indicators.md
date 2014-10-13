@@ -7,21 +7,24 @@ Documentation of tract-level indicators
 
 • Output  
 • General to-do items  
-• A. Number of properties by type  
-• B. Number of sales  
-• C. Median sale price  
-• D. Ratio of improvement value to land value  
-• E. Median square footage  
-• F. Median number of rooms and bedrooms  
-• G. Absentee ownership  
-• H. Property flips  
-• I. Use conversions  
-• J. New construction
+A. Number of properties by type  
+B. Number of sales  
+C. Median sale price  
+D. Ratio of improvement value to land value  
+E. Median square footage  
+F. Median number of rooms and bedrooms  
+G. Absentee ownership  
+H. Property flips  
+I. Use conversions  
+J. New construction
 
 
 #### Output
 
-Indicators are saved as CSV files with one row per census tract. File names should  include the date produced as a versioning mechanism. Census tract identifier should be the GeoID, which is a concatenation of state, county, and tract id's. (Census tract id's are not unique between counties.) For aggregate statistics like medians, it's helpful to include a separate field with the count of applicable records from each census tract. 
+• Indicators are saved as CSV files with one row per census tract  
+• File names should  include the date produced as a versioning mechanism  
+• Census tract identifier should be the GeoID, which is a concatenation of state, county, and tract id's (census tract id's are not unique between counties)  
+• For aggregate statistics like medians, it's helpful to include a separate field with the count of applicable records from each census tract
 
 **Master copy of output files:**  
 https://github.com/ual/dataquick/tree/master/indicator_output  
@@ -41,7 +44,7 @@ https://github.com/ual/dataquick/tree/master/blanchard_code
 
 #### A. Number of properties by type
 
-Based on Dataquick standard use code (`use_code_std`) in assessor tables. First divided into high-level categories (commercial, industrial, residential, etc) and then into detailed categories. Do for each year if possible, or else 2004, 2006, 2010, 2014.
+Based on Dataquick standard use code (`use_code_std`) in assessor tables. First look at high-level categories (commercial, industrial, residential, etc) and then the sub-categories. Do for each year if possible, or else 2004, 2006, 2010, 2014.
 
 **Output**
 
@@ -50,7 +53,7 @@ Based on Dataquick standard use code (`use_code_std`) in assessor tables. First 
 
 #### B. Number of sales
 
-For residential and commercial properties separately. Filter for arms-length transactions. Do each year since 1988, or start with 2004, 2006, 2010, 2014 if simpler.
+For residential and commercial properties separately. Filter for arms-length transactions. Look at each year since 1988, or start with 2004, 2006, 2010, 2014 if simpler.
 
 **Output**
 
@@ -83,7 +86,7 @@ This is a good first pass but needs to be updated. Includes median residential s
 
 Use assessment value fields in the assessor tables. Filter for properties that were sold in the prior calendar year to ensure that appraised values are current. Calculate annually, or use 2004, 2006, 2010, 2014 if that's too much. Commercial as well as residential. 
 
-**Output**
+**Output**  
 `improvement_value_recent_10-3.csv` (Sam M.)
 
 Data fields:  
@@ -93,7 +96,8 @@ Data fields:
 
 This is based on residential properties in the current assessor table, using the `sa_imprv_pct` field. Filtered for properties sold in 2012, but only if the sales were arms-length (`sr_arms_length_flag` = 1).
 
-Based on these figures plus a quick look at the underlying data, here's how counties seem to be calculating improvement value:  
+Based on these figures plus a quick look at the underlying data, here's how counties seem to be calculating improvement value:
+
 • Alameda - usually 70% of total value  
 • Contra Costa - precise numbers, wide variety  
 • Marin - precise numbers, wide variety  
@@ -104,7 +108,7 @@ Based on these figures plus a quick look at the underlying data, here's how coun
 • Solano - precise numbers but all close to 75%  
 • Sonoma - usually 60%
 
-**Next steps**
+**Next steps**  
 • Replace tract id with GeoID  
 • Calculate for all years  
 • Add commercial properties
