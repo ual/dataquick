@@ -123,7 +123,7 @@ Based on these figures plus a quick look at the underlying data, here's how coun
 ==========
 #### E. Median square footage
 
-For all residential properties. And separately to only properties that were sold. Match sales to subsequent assessor year. 
+For all residential properties. And separately for only properties that were sold. Match sales to subsequent assessor year. 
 
 **Output**
 
