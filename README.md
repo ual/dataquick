@@ -3,6 +3,10 @@ dataquick
 
 Code for parsing and analytics of the Dataquick assessor and sales data
 
+**Additional documentation**  
+• [Indicators](https://github.com/ual/dataquick/blob/master/ucb_documentation/indicators.md)  
+• [Data parsing procedures](https://github.com/ual/dataquick/blob/master/ucb_documentation/parsing_raw_data.md)
+
 #### Project background
 
 We obtained a large dataset of parcel and sales transaction records from Dataquick, covering the entire state of California and going back 10 to 25+ years. The data was purchased by the California Air Resources Board (ARB) for research we are performing on their behalf about residential displacement that’s linked to transit-oriented development.
@@ -24,8 +28,7 @@ We obtained a large dataset of parcel and sales transaction records from Dataqui
 
 1. Data is in Postgres on the UAL Tehran server  
 • URL: `tehran.ual.berkeley.edu`  
-• databse: `dataquick`  
-• schema: `master` for the master version of the data tables  
+• databse: `dataquick`, schema: `master` for the master version of the data tables  
 • login: `dataquick_user`, password: `ucbdq`  
 • tables loaded as of 10/12: `assessor`, `sales`  
 • other tables to come: `assessorhist`, `foreclosure`
