@@ -7,6 +7,7 @@ Code for parsing and analytics of the Dataquick assessor and sales data
 • [Indicators](https://github.com/ual/dataquick/blob/master/ucb_documentation/indicators.md)  
 • [Data parsing procedures](https://github.com/ual/dataquick/blob/master/ucb_documentation/parsing_raw_data.md)
 
+=========
 #### Project background
 
 We obtained a large dataset of parcel and sales transaction records from Dataquick, covering the entire state of California and going back 10 to 25+ years. The data was purchased by the California Air Resources Board (ARB) for research we are performing on their behalf about residential displacement that’s linked to transit-oriented development.
@@ -24,6 +25,7 @@ We obtained a large dataset of parcel and sales transaction records from Dataqui
 • "Catalog/Data Dictionary" spreadsheet with more detailed field definitions  
 • These are available from Box or FTP (see below)  
 
+=========
 #### Ways to access the data
 
 1. Data is in Postgres on the UAL Tehran server  
@@ -37,6 +39,7 @@ We obtained a large dataset of parcel and sales transaction records from Dataqui
 • URL: `ftp.dataquick.com`  
 • login: `ucbrkly`, password: `2a3jsv13`
 
+=========
 #### Contents of raw data files
 
 **Assessor**  
