@@ -114,24 +114,25 @@ field_defs = field_defs[:-2] # remove trailing punctuation
 ################################################################
 
 # Connect to the database
-conn_string = "host='paris.ual.berkeley.edu' dbname='california' user='urbanvision' password='Visua1ization'"
+conn_string = "host='tehran.ual.berkeley.edu' dbname='dataquick' user='dataquick_admin' password='Visua1ization'"
 conn = psycopg2.connect(conn_string)
 cur = conn.cursor()
 
 # Set up table with field definitions
-cur.execute("CREATE TABLE dataquick.assessor (" + field_defs +
-			", CONSTRAINT assessor_pkey PRIMARY KEY (sa_property_id))")
+cur.execute("CREATE TABLE master.assessor (" + field_defs +
+			", CONSTRAINT assessor_pkey PRIMARY KEY (sa_property_id));")
+cur.execute("GRANT SELECT ON TABLE master.assessor TO dataquick_user;")
 conn.commit()
 
 path = '/home/maurer/Dataquick/Assessor_tab_dlm/'
-table = 'dataquick.assessor'
+table = 'master.assessor'
 
 
 # Load data into Postgres
 
 t0 = time.time()
 count = 0
-N = 1000 # set for testing only
+N = 100 # set for testing only
 
 for fnum in range(1,16):
 	zname = 'ARB_ASSR_' + str(fnum).zfill(2) + '.zip'
@@ -139,9 +140,9 @@ for fnum in range(1,16):
 	
 	with zipfile.ZipFile(path+zname) as z:
 		with z.open(fname) as f:
-			for line in f:
-			#for i in range(N):
-				#line = f.readline()
+			#for line in f:
+			for i in range(N):
+				line = f.readline()
 
 				# split by tabs, remove trailing spaces and final EOL value
 				arr = [x.rstrip(' ') for x in line.split('\t')][:-1]
@@ -176,35 +177,36 @@ for fnum in range(1,16):
 					print line
 					print values
 					
-				conn.commit()
 				count += 1
 				if (count % 1000000 == 0):
 					print "rows //", count
-			
+
+conn.commit()			
 cur.execute("SELECT count(sa_property_id) FROM " + table)
 print "rows //", cur.fetchone()[0]
 print "hours //", round((time.time() - t0)*1.0/60/60, 2)
+print "seconds //", int(time.time()-t0)
 
 
 # Add indexes
 
 t0 = time.time()
 conn.commit()
-cur.execute("CREATE INDEX fips_index ON dataquick.assessor " +
+cur.execute("CREATE INDEX assessor_fips_index ON dataquick.assessor " +
 			" USING btree (mm_fips_muni_code);")
 conn.commit()
-print "fips_index", round(time.time() - t0)
+print "assessor_fips_index", round(time.time() - t0)
 
 t0 = time.time()
 conn.commit()
-cur.execute("CREATE INDEX tract_index ON dataquick.assessor " +
+cur.execute("CREATE INDEX assessor_tract_index ON dataquick.assessor " +
 			" USING btree (sa_census_tract);")
 conn.commit()
-print "tract index", round(time.time() - t0)
+print "assessor_tract_index", round(time.time() - t0)
 
 t0 = time.time()
 conn.commit()
-cur.execute("CREATE INDEX property_index ON dataquick.assessor " +
+cur.execute("CREATE INDEX assessor_property_index ON dataquick.assessor " +
 			"USING btree (sa_property_id);")
 conn.commit()
-print "property index", round(time.time() - t0)
+print "assessor_property_index", round(time.time() - t0)

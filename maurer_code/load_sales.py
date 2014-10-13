@@ -69,24 +69,25 @@ field_defs = field_defs[:-2] # remove trailing punctuation
 ################################################################
 
 # Connect to the database
-conn_string = "host='paris.ual.berkeley.edu' dbname='california' user='urbanvision' password='Visua1ization'"
+conn_string = "host='tehran.ual.berkeley.edu' dbname='dataquick' user='dataquick_admin' password='Visua1ization'"
 conn = psycopg2.connect(conn_string)
 cur = conn.cursor()
 
 # Set up table with field definitions
-cur.execute("CREATE TABLE dataquick.sales (" + field_defs +
-			", CONSTRAINT sales_pkey PRIMARY KEY (sr_unique_id))")
+cur.execute("CREATE TABLE master.sales (" + field_defs +
+			", CONSTRAINT sales_pkey PRIMARY KEY (sr_unique_id));")
+cur.execute("GRANT SELECT ON TABLE master.sales TO dataquick_user;")
 conn.commit()
 
 path = '/home/maurer/Dataquick/Sales_tab_dlm/'
-table = 'dataquick.sales'
+table = 'master.sales'
 
 
 # Load data into Postgres
 
 t0 = time.time()
 count = 0
-N = 50 # set for testing only
+N = 200 # set for testing only
 
 for fnum in range(1,31):
 	zname = 'ARB_HIST_' + str(fnum).zfill(2) + '.zip'
@@ -131,12 +132,35 @@ for fnum in range(1,31):
 					print line
 					print values
 					
-				conn.commit()
 				count += 1
 				if (count % 1000000 == 0):
 					print "rows //", count
 			
+conn.commit()
 cur.execute("SELECT count(sr_unique_id) FROM " + table)
 print "rows //", cur.fetchone()[0]
 print "hours //", round((time.time() - t0)*1.0/60/60, 2)
 
+
+# Add indexes
+
+t0 = time.time()
+conn.commit()
+cur.execute("CREATE INDEX sales_fips_index ON master.sales " +
+			" USING btree (mm_fips_muni_code);")
+conn.commit()
+print "sales_fips_index", round(time.time() - t0)
+
+t0 = time.time()
+conn.commit()
+cur.execute("CREATE INDEX sales_property_index ON master.sales " +
+			"USING btree (sr_property_id);")
+conn.commit()
+print "sales_property index", round(time.time() - t0)
+
+t0 = time.time()
+conn.commit()
+cur.execute("CREATE INDEX sales_date_index ON master.sales " +
+			"USING btree (sr_date_transfer);")
+conn.commit()
+print "sales_property index", round(time.time() - t0)
