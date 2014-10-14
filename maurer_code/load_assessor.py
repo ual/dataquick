@@ -5,7 +5,7 @@ import time
 import zipfile
 
 fields = ["SA_PROPERTY_ID", "SA_SCM_ID", "MM_STATE_CODE", "MM_MUNI_NAME",
-"MM_FIPS_STATE_CODE", "MM_FIPS_MUNI_CODE", "MM_FIPS_COUNTY_NAME",
+"MM_FIPS_STATE_CODE", "MM_FIPS_MUNI_CODE", "MM_FIPS_COUNTY_NAME", 
 "SA_PARCEL_NBR_PRIMARY", "SA_PARCEL_NBR_REFERENCE",
 "SA_PARCEL_ACCOUNT_NBR", "SA_PARCEL_NBR_ALT", "SA_PARCEL_NBR_PREVIOUS",
 "SA_PARCEL_NBR_CHANGE_YR", "SA_YR_APN_ADDED", "SA_OWNER_1",
@@ -61,8 +61,9 @@ fields = ["SA_PROPERTY_ID", "SA_SCM_ID", "MM_STATE_CODE", "MM_MUNI_NAME",
 "SA_X_COORD", "SA_Y_COORD", "SA_GEO_QLTY_CODE", "SA_CENSUS_TRACT",
 "SA_CENSUS_BLOCK_GROUP", "CORE_BASED_STATISTICAL_AREA_CODE",
 "MINOR_CIVIL_DIVISION_CODE", "FIPS_PLACE_CODE",
-"SA_INACTIVE_PARCEL_FLAG", "SA_SHELL_PARCEL_FLAG"]
+"SA_INACTIVE_PARCEL_FLAG", "SA_SHELL_PARCEL_FLAG", "UCB_GEO_ID"]
 # final FILLER field not in the tab-delimited files
+# add ucb_geo_id as final field
 
 field_types = ["int", "int", "varchar", "varchar", "tinyint", "smallint", "varchar",
 "varchar", "varchar", "varchar", "varchar", "varchar", "smallint",
@@ -93,7 +94,7 @@ field_types = ["int", "int", "varchar", "varchar", "tinyint", "smallint", "varch
 "varchar", "smallint", "smallint", "int", "int", "int", "int",
 "varchar", "int", "varchar", "int", "numeric", "numeric", "varchar",
 "varchar", "varchar", "varchar", "varchar", "varchar", "varchar",
-"varchar"]
+"varchar", "varchar"]
 
 # Replace SQL Server types with Postgres types as needed
 for i, t in enumerate(field_types):
@@ -140,14 +141,14 @@ for fnum in range(1,16):
 	
 	with zipfile.ZipFile(path+zname) as z:
 		with z.open(fname) as f:
-			#for line in f:
-			for i in range(N):
-				line = f.readline()
+			for line in f:
+			#for i in range(N):
+				#line = f.readline()
 
 				# split by tabs, remove trailing spaces and final EOL value
 				arr = [x.rstrip(' ') for x in line.split('\t')][:-1]
 				values = ''
-				for i in range(len(fields)):
+				for i in range(len(fields)-1): # subtract 1 for geo_id
 					val = arr[i]
 
 					# enquote strings, escape single quotes, escape backslashes
@@ -165,8 +166,9 @@ for fnum in range(1,16):
 						
 					values += val + ', '
 					
-				# remove trailing punctuation	
-				values = values[:-2]
+				# if not adding geo_id, need to remove trailing punctuation
+				geo_id = str(arr[4]).zfill(2) + str(arr[5]).zfill(3) + arr[182]
+				values = values + "'" + geo_id + "'"
 					
 				try:
 					cur.execute("INSERT INTO " + table + " VALUES (" + values + ")")
@@ -192,21 +194,28 @@ print "seconds //", int(time.time()-t0)
 
 t0 = time.time()
 conn.commit()
-cur.execute("CREATE INDEX assessor_fips_index ON dataquick.assessor " +
-			" USING btree (mm_fips_muni_code);")
+cur.execute("CREATE INDEX assessor_fips_index ON master.assessor " +
+			"USING btree (mm_fips_muni_code);")
 conn.commit()
 print "assessor_fips_index", round(time.time() - t0)
 
 t0 = time.time()
 conn.commit()
-cur.execute("CREATE INDEX assessor_tract_index ON dataquick.assessor " +
-			" USING btree (sa_census_tract);")
+cur.execute("CREATE INDEX assessor_tract_index ON master.assessor " +
+			"USING btree (sa_census_tract);")
 conn.commit()
 print "assessor_tract_index", round(time.time() - t0)
 
 t0 = time.time()
 conn.commit()
-cur.execute("CREATE INDEX assessor_property_index ON dataquick.assessor " +
+cur.execute("CREATE INDEX assessor_property_index ON master.assessor " +
 			"USING btree (sa_property_id);")
 conn.commit()
 print "assessor_property_index", round(time.time() - t0)
+
+t0 = time.time()
+conn.commit()
+cur.execute("CREATE INDEX assessor_geo_index ON master.assessor " +
+			"USING btree (ucb_geo_id);")
+conn.commit()
+print "assessor_geo_index", round(time.time() - t0)
