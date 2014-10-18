@@ -140,7 +140,7 @@ Based on these figures plus a quick look at the underlying data, here's how coun
 For all residential properties. And separately for only properties that were sold. Match sales to subsequent assessor year. 
 
 **Output**  
-• Output is in `stats_sqft_rooms_current_20141017.csv`  
+• Output is in `stats_sqft_rooms_current_20141018.csv`  
 • `sqft_median` = median square footage of residential properties in the geo_id  
 • `sqft_count` = number of properties in above calculation (other count fields are analogous)  
 • `rooms_median`, `bedrms_median` = median number of rooms, bedrooms per residential property in geo_id  
@@ -150,12 +150,12 @@ For all residential properties. And separately for only properties that were sol
 • All medians and counts exclude zero or missing values (which is why the counts vary between fields)  
 • Square footage is from the `sa_sqft` field in the assessor table  
 • Rooms and bedrooms are from the `sa_nbr_rms` and `sa_nbr_bedrms` fields  
-• Sale dates are from the `sa_date_transfer` field in the assessor table  
+• Sale dates are from the `sr_date_transfer` field in the sales table  
+• Sales are filtered for `sr_arms_length_flag = 1`  
 • Code is in `stats_sqft_rooms_current.py`
 
 **Next steps**  
-• Repeat for each year in the historical assessor table  
-• We should confirm that `sa_date_transfer` in the assessor table excludes non-arms-length transactions
+• Repeat for each year in the historical assessor table
 
 
 ==========
