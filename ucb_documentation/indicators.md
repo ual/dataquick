@@ -47,9 +47,9 @@ https://github.com/ual/dataquick/tree/master/blanchard_code
 ==========
 #### A. Number of properties by type
 
-Based on Dataquick standard use code (`use_code_std`) in assessor tables. All codes have four characters, with the first character representing the broad land category (commercial, industrial, residential, etc) and the remainder specifying the sub-category. 
+Based on Dataquick standard use code (`use_code_std`) in assessor tables. All codes have four characters, with the first character indicating the broad land use category (commercial, industrial, residential, etc) and the remainder specifying the sub-category. 
 
-Count properties in each broad use category, then count them a second time by sub-category. Do for each year if possible, or else 2004, 2006, 2010, 2014.
+Count the properties in each broad use category, then count them a second time by sub-category. Do for each year if possible, or else 2004, 2006, 2010, 2014.
 
 **Output**  
 • output is in `stats_use_code_current_20141017.csv`  
