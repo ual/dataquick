@@ -1,5 +1,5 @@
 # This script tabulates use codes
-# Takes about 5 min to run locally
+# Takes about 5 min to run on server
 
 import psycopg2
 import numpy as np
