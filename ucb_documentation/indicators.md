@@ -23,7 +23,7 @@ I. New construction
 
 • Indicators are saved as CSV files with one row per census tract  
 • File names should  include the date produced as a versioning mechanism  
-• Census tract identifier should be the GeoID, which is a concatenation of state, county, and tract id's (census tract id's are not unique between counties)  
+• Census tract identifier is the GeoID, which is a concatenation of state, county, and tract id's (census tract id's are not unique between counties)  
 • For aggregate statistics like medians, it's helpful to include a separate field with the count of applicable records from each census tract
 
 **Master copy of output files:**  
