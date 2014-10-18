@@ -195,12 +195,17 @@ We're interested in condo conversions, residential to commercial, multifamily to
 
 
 ==========
-#### I. New construction
+#### I. New residential construction
 
 Assessor tables include a year built field.
 
-**Output**
+**Output**  
+• Output is in `stats_construction_20141017.csv`  
+• Based on `sa_yr_blt` field in current assessor table  
+• One column per year from 1988 to 2014 (through 6/2014)  
+• Values are the count of currently standing residential properties that were built in each year
 
-**Next steps**
+**Next steps**  
+• None
 
 
