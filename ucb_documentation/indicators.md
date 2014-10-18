@@ -92,7 +92,7 @@ Adjust for constant dollars using national headline CPI.
 http://www.bls.gov/data/inflation_calculator.htm
 
 **Output**  
-`price_sqft_v2.csv` (Sam M.)
+`price_sqft_v2.csv`
 
 This is a good first pass but needs to be updated. Includes median residential sale price for 2004 and 2014, plus proportional appreciation rate (calculated from the medians). Filtered for arms-length transactions, non-zero sale price, non-missing square footage, non-missing use code.
 
@@ -150,7 +150,8 @@ For all residential properties. And separately for only properties that were sol
 • All medians and counts exclude zero or missing values (which is why the counts vary between fields)  
 • Square footage is from the `sa_sqft` field in the assessor table  
 • Rooms and bedrooms are from the `sa_nbr_rms` and `sa_nbr_bedrms` fields  
-• Sale dates are from the `sa_date_transfer` field in the assessor table
+• Sale dates are from the `sa_date_transfer` field in the assessor table  
+• Code is in `stats_sqft_rooms_current.py`
 
 **Next steps**  
 • Repeat for each year in the historical assessor table  
@@ -162,9 +163,15 @@ For all residential properties. And separately for only properties that were sol
 
 For all residential properties in 2004 and 2014, plus percent change. Start with `sa_site_mail_same` field from current and historical assessor tables. 
 
-**Output**
+**Output**  
+• Output is in `stats_absentee_current_20141017.csv`  
+• Absentee ownership rating is from the `sa_site_mail_same` field from the current assessor table  
+• Columns are `Y` for yes, `N` for no, and `U` for undetermined  
+• Data values are the counts of properties matching each category  
+• Code is in `stats_absentee_current.py`
 
-**Next steps**
+**Next steps**  
+• Repeat for each year in the historical assessor data
 
 
 ==========
