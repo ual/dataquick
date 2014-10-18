@@ -32,8 +32,8 @@ We obtained a large dataset of parcel and sales transaction records from Dataqui
 • URL: `tehran.ual.berkeley.edu`  
 • databse: `dataquick`, schema: `master` for the master version of the data tables  
 • login: `dataquick_user`, password: `ucbdq`  
-• tables loaded as of 10/12: `assessor`, `sales`  
-• other tables to come: `assessorhist`, `foreclosure`
+• tables loaded as of 10/12: `assessor`, `sales`, `ahist` (2004 through 2012)
+• other tables to come: `ahist` (2013-14), `foreclosure`
 2. Raw data files and CSV county extracts are in a shared folder on Box (contact Miriam Zuk for access)
 3. Raw data files are also available from Dataquick by FTP  
 • URL: `ftp.dataquick.com`  
