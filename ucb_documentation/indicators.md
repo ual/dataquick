@@ -47,11 +47,21 @@ https://github.com/ual/dataquick/tree/master/blanchard_code
 ==========
 #### A. Number of properties by type
 
-Based on Dataquick standard use code (`use_code_std`) in assessor tables. First look at high-level categories (commercial, industrial, residential, etc) and then the sub-categories. Do for each year if possible, or else 2004, 2006, 2010, 2014.
+Based on Dataquick standard use code (`use_code_std`) in assessor tables. All codes have four characters, with the first character representing the broad land category (commercial, industrial, residential, etc) and the remainder specifying the sub-category. 
 
-**Output**
+Count properties in each broad use category, then count them a second time by sub-category. Do for each year if possible, or else 2004, 2006, 2010, 2014.
 
-**Next steps**
+**Output**  
+• output is in `stats_use_code_current_20141017.csv`  
+• one row for each unique geo_id in the bay area  
+• incomplete use code means missing tract id in dataquick  
+• the 'R---' subcategories should add up to the 'R' total, and so forth  
+• the use code definitions are here: [USE_CODES.xls](https://github.com/ual/dataquick/blob/master/vendor_documentation/data_dictionary/USE_CODES.xls])  
+• a missing column means category was not used in the bay area  
+• code is in `stats_use_code_current.py`
+
+**Next steps**  
+• Repeat for historical assessor table
 
 
 ==========
