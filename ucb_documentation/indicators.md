@@ -52,13 +52,13 @@ Based on Dataquick standard use code (`use_code_std`) in assessor tables. All co
 Count the properties in each broad use category, then count them a second time by sub-category. Do for each year if possible, or else 2004, 2006, 2010, 2014.
 
 **Output**  
-• output is in `stats_use_code_current_20141017.csv`  
-• geo_id with only state and county means the tract id was missing from dataquick  
-• one column for each broad use cateogry, then for each sub-category  
-• the use code definitions are here: [USE_CODES.xls](https://github.com/ual/dataquick/blob/master/vendor_documentation/data_dictionary/USE_CODES.xls])  
-• a missing column means the category was not used in the bay area  
-• the 'R---' subcategories should add up to the 'R' total, and so forth  
-• code is in `stats_use_code_current.py`
+• Output is in `stats_use_code_current_20141017.csv`  
+• Geo_id with only state and county means the tract id was missing from dataquick  
+• One column for each broad use cateogry, then for each sub-category  
+• The use code definitions are here: [USE_CODES.xls](https://github.com/ual/dataquick/blob/master/vendor_documentation/data_dictionary/USE_CODES.xls])  
+• A missing column means the category was not used in the bay area  
+• The 'R---' subcategories should add up to the 'R' total, and so forth  
+• Code is in `stats_use_code_current.py`
 
 **Next steps**  
 • Repeat for each year in the historical assessor table
@@ -70,13 +70,13 @@ Count the properties in each broad use category, then count them a second time b
 For residential and commercial properties separately. Filter for arms-length transactions. Look at each year since 1988, or start with 2004, 2006, 2010, 2014 if simpler.
 
 **Output**  
-• output is in `stats_sales_residential_20141017.csv` and `stats_sales_commercial_20141017.csv`  
-• one row for each bay area geo_id with relevant sale transactions  
-• one column for each calendar year from 1988 to 2014 (sales through 6/2014)  
-• values are the count of residential or commercial sale transactions in a given year  
-• sales are filtered for `sr_arms_length_flag = 1`  
-• sales are filtered for the first character of `use_code_std` being `R` or `C`  
-• code is in `stats_sales_residential.py` and `stats_sales_commercial.py`
+• Output is in `stats_sales_residential_20141017.csv` and `stats_sales_commercial_20141017.csv`  
+• One row for each bay area geo_id with relevant sale transactions  
+• One column for each calendar year from 1988 to 2014 (sales through 6/2014)  
+• Values are the count of residential or commercial sale transactions in a given year  
+• Sales are filtered for `sr_arms_length_flag = 1`  
+• Sales are filtered for the first character of `use_code_std` being `R` or `C`  
+• Code is in `stats_sales_residential.py` and `stats_sales_commercial.py`
 
 **Next steps**  
 • None
@@ -143,9 +143,18 @@ Based on these figures plus a quick look at the underlying data, here's how coun
 
 For all residential properties. And separately for only properties that were sold. Match sales to subsequent assessor year. 
 
-**Output**
+**Output**  
+• Output is in `stats_sqft_current_20141017.csv`  
+• `med_sqft` = median square footage of residential properties in geo_id  
+• `count1` = number of properties in above calculation  
+• `med_sqft_2014_sales` = median square footage of residential properties sold in 2014  
+• `count2` = number of properties in above calculation  
+• Square footage is from the `sa_sqft` field in the assessor table  
+• Sale dates are from the `sa_date_transfer` field in the assessor table
 
-**Next steps**
+**Next steps**  
+• Repeat for each year in the historical assessor table  
+• We should confirm that `sa_date_transfer` in the assessor table excludes non-arms-length transactions
 
 
 ==========
