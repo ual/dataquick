@@ -6,7 +6,7 @@ import zipfile
 import sys
 
 # Add ucb_ahist_id, so we can stick all the years together into a single table
-# It's a 16-digit concatenation of year + property id
+# It's an 18-digit concatenation of year + version + property id
 
 # (looks like the max value of sa_property_id is 9 digits, but the Dataquick
 #  schema specification allows it to be 12 digits, so this seems safest)
@@ -158,9 +158,10 @@ for fnum in range(2013, 2015):
 					
 					values += val + ', '
 					
-				# if not adding ucb_ahist_id, need to remove trailing punctuation
-				ahist_id = line[12:16] + line[0:12].rstrip(' ').zfill(12)	
-				values = values + ahist_id
+				yr = line[12:16]
+				vers = line[16:18].rstrip(' ').zfill(2)
+				prop = line[0:12].rstrip(' ').zfill(12)
+				values = values + (yr + vers + prop) # add ahist_id
 					
 				try:
 					cur.execute("INSERT INTO " + table + " VALUES (" + values + ")")
