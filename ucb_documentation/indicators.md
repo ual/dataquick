@@ -53,15 +53,15 @@ Count the properties in each broad use category, then count them a second time b
 
 **Output**  
 • output is in `stats_use_code_current_20141017.csv`  
-• one row for each unique geo_id in the bay area  
-• incomplete use code means missing tract id in dataquick  
-• the 'R---' subcategories should add up to the 'R' total, and so forth  
+• geo_id with only state and county means the tract id was missing from dataquick  
+• one column for each broad use cateogry, then for each sub-category  
 • the use code definitions are here: [USE_CODES.xls](https://github.com/ual/dataquick/blob/master/vendor_documentation/data_dictionary/USE_CODES.xls])  
-• a missing column means category was not used in the bay area  
+• a missing column means the category was not used in the bay area  
+• the 'R---' subcategories should add up to the 'R' total, and so forth  
 • code is in `stats_use_code_current.py`
 
 **Next steps**  
-• Repeat for historical assessor table
+• Repeat for each year in the historical assessor table
 
 
 ==========
@@ -69,9 +69,17 @@ Count the properties in each broad use category, then count them a second time b
 
 For residential and commercial properties separately. Filter for arms-length transactions. Look at each year since 1988, or start with 2004, 2006, 2010, 2014 if simpler.
 
-**Output**
+**Output**  
+• output is in `stats_sales_residential_20141017.csv` and `stats_sales_commercial_20141017.csv`  
+• one row for each bay area geo_id with relevant sale transactions  
+• one column for each calendar year from 1988 to 2014 (sales through 6/2014)  
+• values are the count of residential or commercial sale transactions in a given year  
+• sales are filtered for `sr_arms_length_flag = 1`  
+• sales are filtered for the first character of `use_code_std` being `R` or `C`  
+• code is in `stats_sales_residential.py` and `stats_sales_commercial.py`
 
-**Next steps**
+**Next steps**  
+• None
 
 
 ==========
