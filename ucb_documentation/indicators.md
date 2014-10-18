@@ -11,12 +11,11 @@ A. Number of properties by type
 B. Number of sales  
 C. Median sale price  
 D. Ratio of improvement value to land value  
-E. Median square footage  
-F. Median number of rooms and bedrooms  
-G. Absentee ownership  
-H. Property flips  
-I. Use conversions  
-J. New construction
+E. Median square footage, number of rooms and bedrooms  
+F. Absentee ownership  
+G. Property flips  
+H. Use conversions  
+I. New construction
 
 
 ==========
@@ -139,17 +138,21 @@ Based on these figures plus a quick look at the underlying data, here's how coun
 
 
 ==========
-#### E. Median square footage
+#### E. Median square footage, number of rooms, and bedrooms
 
 For all residential properties. And separately for only properties that were sold. Match sales to subsequent assessor year. 
 
 **Output**  
-• Output is in `stats_sqft_current_20141017.csv`  
-• `med_sqft` = median square footage of residential properties in geo_id  
-• `count1` = number of properties in above calculation  
-• `med_sqft_2014_sales` = median square footage of residential properties sold in 2014  
-• `count2` = number of properties in above calculation  
+• Output is in `stats_sqft_rooms_current_20141017.csv`  
+• `sqft_median` = median square footage of residential properties in the geo_id  
+• `sqft_count` = number of properties in above calculation (other count fields are analogous)  
+• `rooms_median`, `bedrms_median` = median number of rooms, bedrooms per residential property in geo_id  
+• `sqft_median_2012_sales` = median square footage of residential properties sold in 2012  
+• Other `_2012_sales` fields are analogous  
+• Current assessor data is from 2013 or 2014, so the 2012 sales cohort is the last one guaranteed to have its stats updated in the current table  
+• All medians and counts exclude zero or missing values (which is why the counts vary between fields)  
 • Square footage is from the `sa_sqft` field in the assessor table  
+• Rooms and bedrooms are from the `sa_nbr_rms` and `sa_nbr_bedrms` fields  
 • Sale dates are from the `sa_date_transfer` field in the assessor table
 
 **Next steps**  
@@ -158,17 +161,7 @@ For all residential properties. And separately for only properties that were sol
 
 
 ==========
-#### F. Median number of rooms and bedrooms
-
-For all residential properties. And separately to only properties that were sold. Match sales to subsequent assessor year. 
-
-**Output**
-
-**Next steps**
-
-
-==========
-#### G. Absentee ownership
+#### F. Absentee ownership
 
 For all residential properties in 2004 and 2014, plus percent change. Start with `sa_site_mail_same` field from current and historical assessor tables. 
 
@@ -178,7 +171,7 @@ For all residential properties in 2004 and 2014, plus percent change. Start with
 
 
 ==========
-#### H. Property flips
+#### G. Property flips
 
 Count of properties that were sold 2 or more times within 2 years. Filter for arms-length transactions.
 
@@ -188,7 +181,7 @@ Count of properties that were sold 2 or more times within 2 years. Filter for ar
 
 
 ==========
-#### I. Use conversions
+#### H. Use conversions
 
 We're interested in condo conversions, residential to commercial, multifamily to single family, rental to ownership. 
 
@@ -198,7 +191,7 @@ We're interested in condo conversions, residential to commercial, multifamily to
 
 
 ==========
-#### J. New construction
+#### I. New construction
 
 Assessor tables include a year built field.
 
