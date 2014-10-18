@@ -114,9 +114,9 @@ Use assessment value fields in the assessor tables. Filter for properties that w
 • `res_imprv_pct_median` = median portion of assessed value allocated to improvements, for residential properties  
 • `res_imprv_pct_stdev` = standard deviation, to indicate dispersion in underlying values  
 • `res_count` = count of applicable properties for each tract  
-• The `com` fields are analogous for commercial properties
-
-This is based on residential properties in the current assessor table, using the `sa_imprv_pct` field. Filtered for properties sold in 2012, but only if the sales were arms-length (`sr_arms_length_flag` = 1).
+• The `com_` fields are analogous for commercial properties  
+• Improvement ratios are from the `sa_imprv_pct` field in current assessor table  
+• Filtered for properties sold in 2012, but only if the sales were arms-length (`sr_arms_length_flag = 1`)
 
 Based on these figures plus a quick look at the underlying data, here's how counties seem to be calculating improvement value:
 
