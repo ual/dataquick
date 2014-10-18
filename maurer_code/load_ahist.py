@@ -3,6 +3,7 @@
 import psycopg2
 import time
 import zipfile
+import sys
 
 # Add ucb_ahist_id, so we can stick all the years together into a single table
 # It's a 16-digit concatenation of year + property id
@@ -110,18 +111,21 @@ path = '/home/maurer/Dataquick/Assessor_History/'
 table = 'master.ahist'
 
 # Set up table with field definitions
-cur.execute("CREATE TABLE " + table + " (" + field_defs +
-			", CONSTRAINT ahist_pkey PRIMARY KEY (ucb_ahist_id));")
-cur.execute("GRANT SELECT ON TABLE " + table + " TO dataquick_user;")
-conn.commit()
+try:
+	cur.execute("CREATE TABLE " + table + " (" + field_defs +
+				", CONSTRAINT ahist_pkey PRIMARY KEY (ucb_ahist_id));")
+	cur.execute("GRANT SELECT ON TABLE " + table + " TO dataquick_user;")
+except:
+	pass
 
 # Load data into Postgres
 
+conn.commit()
 t0 = time.time()
 count = 0
 N = 100 # set for testing only
 
-for fnum in range(2004, 2015):
+for fnum in range(2013, 2015):
 	zname = 'AH_' + str(fnum) + '.ZIP'
 	fname = 'AH_' + str(fnum) + '.TXT'
 	
@@ -156,16 +160,18 @@ for fnum in range(2004, 2015):
 					
 				# if not adding ucb_ahist_id, need to remove trailing punctuation
 				ahist_id = line[12:16] + line[0:12].rstrip(' ').zfill(12)	
-				values = values + "'" + ahist_id + "'"
+				values = values + ahist_id
 					
 				try:
 					cur.execute("INSERT INTO " + table + " VALUES (" + values + ")")
-				except:
+				except Exception, e:
+					print str(e)
 					print fnum
 					print count+1
 					print len(line)
 					print line
 					print values
+					sys.exit()
 					
 				count += 1
 				if (count % 1000000 == 0):
