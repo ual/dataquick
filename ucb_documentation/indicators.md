@@ -110,12 +110,11 @@ This is a good first pass but needs to be updated. Includes median residential s
 Use assessment value fields in the assessor tables. Filter for properties that were sold in the prior calendar year to ensure that appraised values are current. Calculate annually, or use 2004, 2006, 2010, 2014 if that's too much. Commercial as well as residential. 
 
 **Output**  
-`improvement_value_recent_10-3.csv` (Sam M.)
-
-Data fields:  
-`imprv_pct_median` = median portion of assessed value allocated to improvements  
-`imprv_pct_stdev` = standard deviation, to indicate dispersion in underlying values    
-`count` = count of applicable properties for each tract
+• Output is in `stats_improvement_current_20141017.csv`  
+• `res_imprv_pct_median` = median portion of assessed value allocated to improvements, for residential properties  
+• `res_imprv_pct_stdev` = standard deviation, to indicate dispersion in underlying values  
+• `res_count` = count of applicable properties for each tract  
+• The `com` fields are analogous for commercial properties
 
 This is based on residential properties in the current assessor table, using the `sa_imprv_pct` field. Filtered for properties sold in 2012, but only if the sales were arms-length (`sr_arms_length_flag` = 1).
 
@@ -132,9 +131,7 @@ Based on these figures plus a quick look at the underlying data, here's how coun
 • Sonoma - usually 60%
 
 **Next steps**  
-• Replace tract id with GeoID  
-• Calculate for all years  
-• Add commercial properties
+• Repeat for each year in the historical assessor table
 
 
 ==========
