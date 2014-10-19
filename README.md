@@ -50,7 +50,7 @@ We obtained a large dataset of parcel and sales transaction records from Dataqui
 • do not use intermediate tab-delimited version from June, which had formatting errors
 
 **Assessor history**  
-• yearly snapshots of records from each county  
+• yearly snapshots of records from each county (frequency varies beginning in 2012)  
 • data covers 2004–2013 for all counties, plus 2014 for some counties  
 • provided as sequence of large fixed-width text files (dated 7-20 or 7-21-2014)  
 • do not use earlier May/June version of the files, which didn't match the schema
