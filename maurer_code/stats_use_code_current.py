@@ -37,10 +37,10 @@ def my_stats(g):
 	return [g] + use1_counts + use2_counts
 
 table = [my_stats(g) for g in geo_list]
-labels = ['geo_id'] + uses1_list + uses2_list
+labels = ['geo_id', 'blank'] + uses1_list[1:] + uses2_list
 print int(time.time()-t0), 'sec. for numpy'
 
-outname = '../output/stats_use_code_current_20141017.csv'
+outname = '../output/stats_use_code_current_20141102.csv'
 
 with open(outname, 'wb') as f:
 	writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
