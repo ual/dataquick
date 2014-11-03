@@ -22,9 +22,8 @@ I. New construction
 #### Output
 
 • Indicators are saved as CSV files with one row per census tract  
-• File names should  include the date produced as a versioning mechanism  
+• File names include the date produced as a versioning mechanism  
 • Census tract identifier is the GeoID, which is a concatenation of state, county, and tract id's (census tract id's are not unique between counties)  
-• For aggregate statistics like medians, it's helpful to include a separate field with the count of applicable records from each census tract
 
 **Master copy of output files:**  
 https://github.com/ual/dataquick/tree/master/indicator_output  
@@ -63,7 +62,7 @@ Count the properties in each broad use category, then count them a second time b
 • Updated `stats_use_code_current_20141102.csv` to clarify that col 2 is the count of missing use codes  
 • Created `stats_use_code_hist_20141102.csv` with yearly counts of the broad use categories (C, R, etc) from the assessor history table  
 • One row per bay area census tract, labeled with geo_id  
-• For years with multiple updates in the history table, I used the first one (`ah_history_yr_version` = 1)  
+• For years with multiple updates in the history table, I used the first one (`ah_history_yr_version = 1`)  
 • Code is in `stats_use_code_hist.py`  
 
 Tallying the detailed use codes would be an easy extension, but it would create quite a large spreadsheet (~80 codes x 10 years = 800 columns) -- so if this is needed let's plan out what specific format is most useful.
@@ -105,12 +104,21 @@ http://www.bls.gov/data/inflation_calculator.htm
 
 This is a good first pass but needs to be updated. Includes median residential sale price for 2004 and 2014, plus proportional appreciation rate (calculated from the medians). Filtered for arms-length transactions, non-zero sale price, non-missing square footage, non-missing use code.
 
+**Update 11-02-2014**  
+• Output is in `stats_sale_price_hist.csv`  
+• One row per census tract, with columns for 1988 through 2014 sales  
+• `YYYY_price_sqft` column = median sale price per sqft for residential properties  
+• `YYYY_count` column = count of the sales that went into the calculation  
+
+• Prices are indexed to 2014 dollars using national headline CPI  
+• Only arms-length, non-zero-value sale transactions are included (`sr_arms_length_flag = 1`, `sr_val_transfer > 0`)  
+• Square footage comes from the *following year's* assessor table (with the exception of pre-2003 sales which are matched to 2004 square footage, and 2013-14 sales which are matched to the latest square footage on file)  
+• The census tract id is only in the current assessor table, so in order to get census-tract-level stats we have to exclude sales of properties that no longer exist  
+• Because early use code data is spotty, I used the *current* use code to filter for residential properties (if this seems like a problem we can do something more subtle)  
+• Code is in `stats_sale_price_hist.py`  
+
 **Next steps**  
-• Replace tract id with GeoID  
-• Calculate for all years  
-• Add commercial properties  
-• Adjust prices for inflation  
-• Can we do time-series analysis of individual properties?
+• Repeat using panel methodology for individual properties?
 
 
 ==========
@@ -140,7 +148,7 @@ Based on these figures plus a quick look at the underlying data, here's how coun
 • Sonoma - usually 60%
 
 **Next steps**  
-• Repeat for each year in the historical assessor table
+• Take a look at the data quality and decide whether to repeat calculations for the historical assessor table
 
 
 ==========
@@ -164,7 +172,7 @@ For all residential properties. And separately for only properties that were sol
 • Code is in `stats_sqft_rooms_current.py`
 
 **Next steps**  
-• Repeat for each year in the historical assessor table
+• Repeat using the panel methodology so that we capture additions to existing properties rather than new construction  
 
 
 ==========
@@ -175,16 +183,15 @@ For all residential properties. Start with `sa_site_mail_same` field from curren
 **Output**  
 • Output is in `stats_absentee_current_20141017.csv`  
 • Absentee ownership rating is from the `sa_site_mail_same` field from the current assessor table  
-• Columns are `Y` for yes, `N` for no, and `U` for undetermined  
+• Columns are `Y` for yes, `N` for no, and `U` for undetermined (these are direct values from Dataquick, and the data dictionary doesn't specify what exactly `U` means)  
 • Data values are the counts of properties matching each category  
 • Code is in `stats_absentee_current.py`
 
 **Update 11-02-2014**  
-• Note that `Y`, `N`, and `U` are the direct values from the Dataquick table, and the data dictionary doesn't specify what exactly `U` means)  
 • Added `stats_absentee_hist.csv` based on the historical assessor table  
 • One row per census tract, set of 3 columns for each year 2004-2014  
 • 2004-05 counts are low because the use codes are mostly missing  
-• For years with multiple updates, I used the first one (`ah_history_yr_version` = 1)  
+• For years with multiple updates, I used the first one (`ah_history_yr_version = 1`)  
 • Code is in `stats_absentee_hist.py`  
 
 **Next steps**  
