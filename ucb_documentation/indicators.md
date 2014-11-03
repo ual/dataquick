@@ -59,8 +59,16 @@ Count the properties in each broad use category, then count them a second time b
 • The 'R---' subcategories should add up to the 'R' total, and so forth  
 • Code is in `stats_use_code_current.py`
 
+**Update 11-02-2014**  
+• Updated `stats_use_code_current_20141102.csv` to clarify that col 2 is the count of missing use codes  
+• Created `stats_use_code_hist_20141102.csv` with yearly counts of the broad use categories (C, R, etc) from the assessor history table  
+• One row per bay area census tract, labeled with geo_id  
+• For years with multiple updates in the history table, I used the first one (`ah_history_yr_version` = 1)
+
+Tallying the detailed use codes would be an easy extension, but it would create quite a large spreadsheet (~80 codes x 10 years = 800 columns) -- so if this is needed let's plan out what specific format is most useful.
+
 **Next steps**  
-• Repeat for each year in the historical assessor table
+• None
 
 
 ==========
@@ -170,8 +178,14 @@ For all residential properties in 2004 and 2014, plus percent change. Start with
 • Data values are the counts of properties matching each category  
 • Code is in `stats_absentee_current.py`
 
+**Update 11-02-2014**  
+• Note that `Y`, `N`, and `U` are the direct values from the Dataquick table, and the data dictionary doesn't specify what exactly `U` means)  
+• Added `stats_absentee_hist.csv` based on the historical assessor table  
+• One row per census tract, set of 3 columns for each year 2004-2014  
+• For years with multiple updates, I used the first one (`ah_history_yr_version` = 1)  
+
 **Next steps**  
-• Repeat for each year in the historical assessor data
+• None
 
 
 ==========
