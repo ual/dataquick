@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # This script tabulates absentee ownership
-# Takes about 60 sec to run on server
+# Takes about 10 min to run on server
 
 import psycopg2
 import numpy as np
@@ -12,9 +12,11 @@ conn_string = "host='tehran.ual.berkeley.edu' dbname='dataquick' user='dataquick
 conn = psycopg2.connect(conn_string)
 cur = conn.cursor()
 
+t_total = time.time()
+
 # each data structure is a dictionary of years..
 
-year_list = range(2004, 2007)
+year_list = range(2004, 2015)
 geo_list = {}
 geo_fltr = {}
 abs_list = {}
@@ -42,12 +44,12 @@ for y in year_list:
 	abs = np.array([r[1] for r in out])
 
 	geo_list[y] = np.unique(geo).tolist()
-	geo_fltr[y] = {g: (geo==g) for g in geo_list}
+	geo_fltr[y] = {g: (geo==g) for g in geo_list[y]}
 
 	abs_list[y] = ['Y', 'N', 'U']
-	abs_fltr[y] = {a: (abs==a) for a in abs_list}
+	abs_fltr[y] = {a: (abs==a) for a in abs_list[y]}
 	
-	print int(time.time()-t0), 'sec. for numpy setup', y
+	print int(time.time()-t0), 'sec. for numpy filter setup', y
 
 def my_stats(g):
 	stats = []
@@ -57,7 +59,7 @@ def my_stats(g):
 				s = np.sum(geo_fltr[y][g] * abs_fltr[y][a])
 			else:
 				s = 0
-		stats.append(s)
+			stats.append(s)
 	return [g] + stats
 
 t0 = time.time()
@@ -65,6 +67,7 @@ master_geo_list = np.unique([g for y in year_list for g in geo_list[y]]).tolist(
 
 table = [my_stats(g) for g in master_geo_list]
 print int(time.time()-t0), 'sec. for numpy stats'
+print int(time.time()-t_total), 'sec. total'
 
 labels = ['geo_id'] 
 for y in year_list:
