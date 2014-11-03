@@ -115,6 +115,7 @@ This is a good first pass but needs to be updated. Includes median residential s
 • Square footage comes from the *following year's* assessor table (with the exception of pre-2003 sales which are matched to 2004 square footage, and 2013-14 sales which are matched to the latest square footage on file)  
 • The census tract id is only in the current assessor table, so in order to get census-tract-level stats we have to exclude sales of properties that no longer exist  
 • Because early use code data is spotty, I used the *current* use code to filter for residential properties (if this seems like a problem we can do something more subtle)  
+• Some counties are missing from these stats in 2011 or 2012 because Dataquick didn't provide complete assessor history updates. We can match those sales to earlier or later square footage on a per-county basis if needed.  
 • Code is in `stats_sale_price_hist.py`  
 
 **Next steps**  
