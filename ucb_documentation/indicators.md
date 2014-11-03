@@ -231,6 +231,11 @@ Assessor tables include a year built field.
 • Values are the count of currently standing residential properties that were built in each year  
 • Code is in `stats_construction.py`
 
+**Update 11-03-2014**  
+• Added columns for all years going back to the earliest recorded construction  
+• Years with no construction in any census tract are skipped  
+• Output is in `stats_construction_20141103.csv`  
+
 **Next steps**  
 • None
 
