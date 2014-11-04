@@ -1,5 +1,5 @@
 # This script tabulates new construction
-# Takes about 2 min to run on server
+# Takes about 12 min to run on server
 
 import psycopg2
 import numpy as np
@@ -27,18 +27,19 @@ yr = np.array([r[1] for r in out])
 geo_list = np.unique(geo).tolist()
 geo_fltr = {g: (geo==g) for g in geo_list}
 
-yr_list = range(1988, 2015)
-yr_fltr = {y: (yr==y) for y in yr_list}
+# earliest plausible record is for 1777
+yr_fltr = {y: (yr==y) for y in range(1750, 2015)}
+yr_list = [y for y in yr_fltr if np.sum(yr_fltr[y])>0]
 
 def my_stats(g):
-	counts = [len(yr[geo_fltr[g]*yr_fltr[y]]) for y in yr_list]
+	counts = [np.sum(geo_fltr[g]*yr_fltr[y]) for y in yr_list]
 	return [g] + counts
 
 table = [my_stats(g) for g in geo_list]
 labels = ['geo_id'] + yr_list
 print int(time.time()-t0), 'sec. for numpy'
 
-outname = '../output/stats_construction_20141017.csv'
+outname = '../output/stats_construction_20141103.csv'
 
 with open(outname, 'wb') as f:
 	writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
