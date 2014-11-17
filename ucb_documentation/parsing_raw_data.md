@@ -1,12 +1,14 @@
 #### Data parsing procedures
 
-Initial data parsing was done by Sam Maurer in Python. Code is provided in this repository. 
+Initial data parsing was done by Sam Maurer in Python. Code is provided in the `maurer_code` directory: exploratory code in the iPython notebooks and production code in `load_assessor.py`, `load_sales.py`, `load_ahist.py`, `load_foreclosure.py`. 
 
 The first stage was basic parsing of the text files to see whether field values, row lengths, and row counts matched the schemas and totals reports. The second stage was generating data extracts for each county in CSV format, so the data could be opened in Stata and other software. The third stage was loading the data into a Postgres database. 
 
 **Procedure for generating CSV county extracts**
 
 Each row of raw data is read into Python and parsed into fields according to the tab delimiters or the character lengths in the layout file. If the `mm_fips_county_name` matches a county of interest, the record is kept, and otherwise it is discarded. Trailing spaces are removed, but there is no other formatting of data values; the CSV files are character-by-character equivalent to the original data contents. Text values that contain commas are placed inside quotes for the CSV output.
+
+Once data is loaded into the Postgres database, CSV extracts can be easily generated using the `psql /copy` command. This is how the assessor history and foreclosure extracts were made. See shell scripts `extract_ahist.sh` and `extract_foreclosure.sh`.
 
 **Procedure for loading data into Postgres**
 
