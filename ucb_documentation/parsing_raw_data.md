@@ -8,7 +8,7 @@ The first stage was basic parsing of the text files to see whether field values,
 
 Each row of raw data is read into Python and parsed into fields according to the tab delimiters or the character lengths in the layout file. If the `mm_fips_county_name` matches a county of interest, the record is kept, and otherwise it is discarded. Trailing spaces are removed, but there is no other formatting of data values; the CSV files are character-by-character equivalent to the original data contents. Text values that contain commas are placed inside quotes for the CSV output.
 
-Once data is loaded into the Postgres database, CSV extracts can be easily generated using the `psql /copy` command. This is how the assessor history and foreclosure extracts were made. See shell scripts `extract_ahist.sh` and `extract_foreclosure.sh`.
+Once data is loaded into the Postgres database, CSV extracts can be easily generated using the `psql /copy` command. This is how the assessor history and foreclosure extracts were made. See shell scripts `extract_ahist.sh` and `extract_foreclosure.sh`. The "v2" foreclosures extract is merged with the current assessor table (using a left outer join) in order to include `ucb_geo_id`, `sa_x_coord`, `sa_y_coord`, and `sa_geo_qlty_code`.
 
 **Procedure for loading data into Postgres**
 
