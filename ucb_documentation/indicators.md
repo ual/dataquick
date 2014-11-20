@@ -202,12 +202,17 @@ For all residential properties. Start with `sa_site_mail_same` field from curren
 ==========
 #### G. Property flips
 
-Count of properties that were sold 2 or more times within 2 years. Filter for arms-length transactions.
+Count of residential properties that were sold 2 or more times within 2 years. Filter for arms-length transactions.
 
 **Output**
+• Output is in `stats_flips_20141119.csv`  
+• Based on `sr_date_transfer` field in sales table  
+• One column per year from 1988 to 2014 
+• Values are the count of 2 or more residential property sale transactions that took place within 2 years for the year of transaction
+• Code is in `stats_flips_hist.py`
 
 **Next steps**
-
+• None
 
 ==========
 #### H. Use conversions
