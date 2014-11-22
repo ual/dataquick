@@ -2,25 +2,26 @@
 
 #### 1. Initial parsing
 
-Initial data parsing was done by Sam Maurer in Python. Code is provided in the `maurer_code` directory: exploratory code in the iPython notebooks and production code in `load_assessor.py`, `load_sales.py`, `load_ahist.py`, `load_foreclosure.py`. 
-
-The first stage was basic parsing of the text files to see whether field values, row lengths, and row counts matched the schemas and totals reports. The second stage was generating data extracts for each county in CSV format, so the data could be opened in Stata and other software. The third stage was loading the data into a Postgres database. 
+Initial data parsing was done using Python to confirm the contents of files and whether field values, row lengths, and row counts matched the schemas and totals reports. This exploratory code is in IPython notebooks in the `maurer_code/ipynb/` directory.
 
 #### 2. Loading data into the Postgres database
 
-For each table, a Postgres schema is created to match the field names and data types in the Dataquick layout file. To account for differences between Dataquick’s SQL Server system and Postgres, data types are changed as follows: `tinyint` to `smallint`, `bit` to `boolean`, and `datetime` to `timestamp`. 
+The raw data tables were loaded into a Postgres database using the `load_*.py` scripts under `maurer_code`. For each table, a Postgres schema was created using the field names and data types listed in the Dataquick layout file. 
 
-Each row of raw data is read into Python and parsed into fields according to the tab delimiters or the character lengths in the layout file. Trailing spaces are removed, and some minimal formatting is done so that the raw text will be parsed correctly by Postgres: strings, booleans, and timestamps are placed inside quotes, and empty numeric values are replaced with `null`. The data values are fed into the database using a separate `insert` statement for each record. This is slow (~10 hours per table) but robust and easy to troubleshoot. 
+Each row of raw data is read into Python and parsed into fields according to the tab delimiters or the character lengths in the layout file. Trailing spaces were removed, and some minimal formatting was done so that the raw text would be parsed correctly by Postgres: strings, booleans, and timestamps were placed inside quotes, and empty numeric values were eplaced with `null`. The data values were then fed into the database using a separate `insert` statement for each record. This is slow (~10 hours per table) but easy to verify and troubleshoot. 
 
-Note that we are retaining whatever data formatting quirks Dataquick may have adopted. Rather than convert a field storing `1` and `0` as strings into boolean format, for example, it seemed better to store data in the exact same format that Dataquick uses and then investigate the contents of particular fields later on. 
+Note that we've retained all of Dataquick's formatting quirks. For example, if Dataquick stored a boolean value as a text string, we do the same. This was done to avoid inadvertantly losing any data from the raw tables. 
 
-Unique id's are used as primary table keys, and indexes are added on fields that may frequently appear in queries: county and census tract codes, dates, other id's, and so on. 
+Dataquick's unique id's are used as primary keys where possible. For the Assessor History table, we created our own unique `ucb_ahist_id` that's an 18-digit concatenation of the year, data version, and property id. For the Current Assessor table, we added a geographic identifier that's easier to match to census data. It's called `ucb_geo_id` and is an 11-character concatenation of the state, county, and census tract FIPS codes. 
+
+Indexes are generated for several commonly used fields, and more can be added easily. 
 
 #### 3. Generating CSV extracts *from raw text files*
 
-Each row of raw data was read into Python and parsed into fields according to the tab delimiters or the character lengths in the layout file. If the `mm_fips_county_name` matched a county of interest, the record was kept, and otherwise it was discarded. Trailing spaces were removed, but there was no other formatting of data values; the CSV files are character-by-character equivalent to the original data contents. Text values that contain commas are placed inside quotes for the CSV output. Extracts were produced using this procedure in Summer 2014. The code is in IPython notebooks, not in stand-alone scripts.
+Before the database was set up, CSV extracts were generated from the raw text files. Each row was parsed according to the tab delimiters or character lengths in the layout file. Trailing spaces were removed, but there was no other formatting of data values. The code for these extracts (produced in Summer 2014) is in IPython notebooks rather than stand-alone scripts.
 
 #### 4. Generating CSV extracts *from the Postgres database*
 
-Now that the data is loaded into Postgres, CSV extracts can be more easily generated using the `psql /copy` command. This writes the output of a SQL query directly to a CSV file, which allows joining of fields from multiple tables. Some of the extracts were updating using this procedure in November 2014. Code is in the shell scripts named `extract_*.sh` under `maurer_code` in this repository, and CSV output is saved on Box. These "v2" sale and foreclosure extracts include geo fields from the current assessor table, for records that could be matched by property id. The assessor history extracts were generated using the first procedure for 2004 data only, and then again using the Postgres-based procedure for all years. 
+Now that the data is loaded into Postgres, CSV extracts can be more easily generated using the command-line `psql /copy` tool. This writes the output of a SQL query directly to a CSV file, which allows data to be easily subsetted and fields to be joined from multiple tables. Many of the extracts were updated using this procedure in November 2014. 
 
+Code is in the shell scripts named `extract_*.sh` under `maurer_code` in this repository, and CSV output is saved on Box. These "v2" sales and foreclosure extracts include geo fields from the current assessor table, for records that could be matched by property id. 
