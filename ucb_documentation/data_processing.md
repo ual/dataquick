@@ -8,13 +8,11 @@ Initial data parsing was done using Python to confirm the contents of files and 
 
 The raw data tables were loaded into a Postgres database using the `load_*.py` scripts under `maurer_code`. For each table, a Postgres schema was created using the field names and data types listed in the Dataquick layout file. 
 
-Each row of raw data is read into Python and parsed into fields according to the tab delimiters or the character lengths in the layout file. Trailing spaces were removed, and some minimal formatting was done so that the raw text would be parsed correctly by Postgres: strings, booleans, and timestamps were placed inside quotes, and empty numeric values were eplaced with `null`. The data values were then fed into the database using a separate `insert` statement for each record. This is slow (~10 hours per table) but easy to verify and troubleshoot. 
+Each row of raw data was read into Python and parsed into fields according to the tab delimiters or the character lengths in the layout file. Trailing spaces were removed, and some minimal formatting was done so that the raw text would be parsed correctly by Postgres. The data values were then fed into the database using a separate `insert` statement for each record. This is slow (~10 hours per table) but easy to verify and troubleshoot. Indexes were generated for all the fields likely to be used as query filters. 
 
 Note that we've retained all of Dataquick's formatting quirks. For example, if Dataquick stored a boolean value as a text string, we do the same. This was done to avoid inadvertantly losing any data from the raw tables. 
 
 Dataquick's unique id's are used as primary keys where possible. For the Assessor History table, we created our own unique `ucb_ahist_id` that's an 18-digit concatenation of the year, data version, and property id. For the Current Assessor table, we added a geographic identifier that's easier to match to census data. It's called `ucb_geo_id` and is an 11-character concatenation of the state, county, and census tract FIPS codes. 
-
-Indexes are generated for several commonly used fields, and more can be added easily. 
 
 #### 3. Generating CSV extracts *from raw text files*
 
@@ -24,4 +22,4 @@ Before the database was set up, CSV extracts were generated from the raw text fi
 
 Now that the data is loaded into Postgres, CSV extracts can be more easily generated using the command-line `psql /copy` tool. This writes the output of a SQL query directly to a CSV file, which allows data to be easily subsetted and fields to be joined from multiple tables. Many of the extracts were updated using this procedure in November 2014. 
 
-Code is in the shell scripts named `extract_*.sh` under `maurer_code` in this repository, and CSV output is saved on Box. These "v2" sales and foreclosure extracts include geo fields from the current assessor table, for records that could be matched by property id. 
+Code is in the shell scripts named `extract_*.sh` under `maurer_code` in this repository, and CSV output is saved on Box. These "v2" sales and foreclosure extracts include geo fields joined from the current assessor table, for all the records that could be matched by property id. 
