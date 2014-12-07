@@ -118,6 +118,15 @@ This is a good first pass but needs to be updated. Includes median residential s
 • Some counties are missing from these stats in 2011 or 2012 because Dataquick didn't provide complete assessor history updates. We can match those sales to earlier or later square footage on a per-county basis if needed.  
 • Code is in `stats_sale_price_hist.py`  
 
+**Update 12-06-2014**  
+• Output is in `stats_price_singlefam_20141206.csv` and `_multifam_`  
+• This update removes multi-property transactions, shifts to using the current assessor table for use codes and square footage, and divides results into single-family and multifamily tables  
+
+• We found that multi-property transactions (often condo building or subdivision sales) frequently have incorrect price or square footage data because of how the information is provided to Dataquick  
+• These transactions can be identified by duplicate `sr_doc_nbr_fmt` entries on a single day in a single county (after removing non-arms-length transactions)  
+• We also found that idiosyncratic errors result in 1% to 10% of existing properties being missing in each historical assessor table, but present in the "current" table  
+• Matching transactions to the current rather than contemporaneous assessor table (for use code and square footage) substantially increases our data coverage, although it presumably introduces occasional errors as well  
+
 **Next steps**  
 • Repeat using panel methodology for individual properties?
 
