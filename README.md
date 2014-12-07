@@ -62,7 +62,6 @@ We obtained a large dataset of parcel and sales transaction records from Dataqui
 • do not use intermediate tab-delimited version from June, which had formatting errors  
 *check: do the later files also include additional records from the month of June?*
 
-**Foreclosure = Foreclosure notice information**  
+**Foreclosure**  
 • provided as one large fixed-width text file (dated 5-28-2014)  
 • same data also provided as a tab-delimited file (dated 6-16-2014)  
-*check: have we compared the fixed-width and tab-delimited files yet?*
