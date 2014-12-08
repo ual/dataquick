@@ -229,8 +229,8 @@ Count of residential properties that were sold 2 or more times within 2 years. F
 Count of specific 4 digit residential to residential use code changes and broad use code changes for every use code to every use code for each year. This includes condo conversions, residential to commercial, multifamily to single family, rental to ownership. Filter for parcel update history version 1.
 
 **Output**  
-• Output is in `stats_usechange_R4digit_20141207.csv`  
-• Output is in `stats_usechange_broad_20141207.csv`  
+• Output for 4 digit residential to residential is in `stats_usechange_R4digit_20141207.csv`  
+• Output for broad use code changes is in `stats_usechange_broad_20141207.csv`  
 • Based on `use_code_std` field in assessor table  
 • One column per use code type change and year from 2006 to 2011  
 • Values are the count of residential properties that have changed the specified use code from one year to the next  
