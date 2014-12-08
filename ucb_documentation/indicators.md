@@ -236,7 +236,7 @@ Count of specific 4 digit residential to residential use code changes and broad 
 • Values are the count of residential properties that have changed the specified use code from one year to the next  
 • Code is in `stats_usecode_hist.py`  
 
-**Next steps**
+**Next steps**  
 • None
 
 ==========
