@@ -5,7 +5,7 @@ Code for parsing and analytics of the Dataquick assessor and sales data
 
 **Additional documentation**  
 • [Indicators](https://github.com/ual/dataquick/blob/master/ucb_documentation/indicators.md)  
-• [Data parsing procedures](https://github.com/ual/dataquick/blob/master/ucb_documentation/parsing_raw_data.md)
+• [Data processing procedures](https://github.com/ual/dataquick/blob/master/ucb_documentation/data_processing.md)
 
 =========
 #### Project background
