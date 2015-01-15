@@ -74,7 +74,7 @@ Tallying the detailed use codes would be an easy extension, but it would create 
 ==========
 #### B. Number of sales
 
-For residential and commercial properties separately. Filter for arms-length transactions. Look at each year since 1988, or start with 2004, 2006, 2010, 2014 if simpler.
+For residential and commercial properties separately. Filter for arms-length transactions. 
 
 **Output**  
 • Output is in `stats_sales_residential_20141017.csv` and `stats_sales_commercial_20141017.csv`  
@@ -84,6 +84,9 @@ For residential and commercial properties separately. Filter for arms-length tra
 • Sales are filtered for `sr_arms_length_flag = 1`  
 • Sales are filtered for the first character of `use_code_std` being `R` or `C`  
 • Code is in `stats_sales_residential.py` and `stats_sales_commercial.py`
+
+**Update 1-14-2015**  
+• Updated `stats_sales_residential_20150114.csv` based on the new, more thorough data cleaning
 
 **Next steps**  
 • None
@@ -126,6 +129,11 @@ This is a good first pass but needs to be updated. Includes median residential s
 • These transactions can be identified by duplicate `sr_doc_nbr_fmt` entries on a single day in a single county (after removing non-arms-length transactions)  
 • We also found that idiosyncratic errors result in 1% to 10% of existing properties being missing in each historical assessor table, but present in the "current" table  
 • Matching transactions to the current rather than contemporaneous assessor table (for use code and square footage) substantially increases our data coverage, although it presumably introduces occasional errors as well  
+
+**Update 1-14-2015**  
+• Updated `stats_sales_residential_20150114.csv` and `_multifam_`  
+• Input reflects the new, more thorough data cleaning  
+• Prices are now indexed to 2010 dollars  
 
 **Next steps**  
 • Repeat using panel methodology for individual properties?
