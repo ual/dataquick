@@ -24,9 +24,9 @@ Now that the data is loaded into Postgres, CSV extracts can be more easily gener
 
 Code is in the shell scripts named `extract_*.sh` under `maurer_code` in this repository, and CSV output is saved on Box. These "v2" sales and foreclosure extracts include geo fields joined from the current assessor table, for all the records that could be matched by property id. 
 
-### 4. Sales transaction data filtering
+#### 4. Sales transaction data filtering
 
-In January 2015 we implemented a detailed analysis and filtering of the sales table in order to isolate true market-rate sales, with valid price-per-square-foot and without duplication. Please refer to the linked Word document for more info.
+In January 2015 we implemented a detailed analysis and filtering of the sales table in order to isolate true market-rate sales, with valid price-per-square-foot and without duplication. [Please refer to the linked Word document for more info.](https://github.com/ual/dataquick/blob/master/ucb_documentation/Dataquick%20Cleaning%202015-01-14.docx?raw=true)
 
 Filtered transaction records have been saved to the a new database table called `sales_clean`, which includes all sales fields, several assessor fields for convenience (`use_code_std`, `sa_sqft`, `sa_x_coord`, `sa_y_coord`, `sa_geo_qlty_code`), and some new custom fields: 
 
