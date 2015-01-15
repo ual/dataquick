@@ -32,7 +32,7 @@ We obtained a large dataset of parcel and sales transaction records from Dataqui
 • URL: `tehran.ual.berkeley.edu`  
 • databse: `dataquick`, schema: `master` for the master version of the data tables  
 • login: `dataquick_user`, password: `ucbdq`  
-• tables: `assessor`, `sales`, `ahist`, `foreclosure`  
+• tables: `assessor`, `sales`, `sales_clean`, `ahist`, `foreclosure`  
 2. Raw data files and CSV county extracts are in a shared folder on Box (contact Miriam Zuk for access)
 3. Raw data files are also available from Dataquick by FTP  
 • URL: `ftp.dataquick.com`  
@@ -60,7 +60,6 @@ We obtained a large dataset of parcel and sales transaction records from Dataqui
 • provided as one large fixed-width text file (dated 5-28-2014)  
 • equivalent data provided as sequence of smaller tab-delimited files (dated 7-9-2014), including some additional transaction types  
 • do not use intermediate tab-delimited version from June, which had formatting errors  
-*check: do the later files also include additional records from the month of June?*
 
 **Foreclosure**  
 • provided as one large fixed-width text file (dated 5-28-2014)  
