@@ -23,3 +23,15 @@ Before the database was set up, CSV extracts were generated from the raw text fi
 Now that the data is loaded into Postgres, CSV extracts can be more easily generated using the command-line `psql /copy` tool. This writes the output of a SQL query directly to a CSV file, which allows data to be easily subsetted and fields to be joined from multiple tables. Many of the extracts were updated using this procedure in November 2014. 
 
 Code is in the shell scripts named `extract_*.sh` under `maurer_code` in this repository, and CSV output is saved on Box. These "v2" sales and foreclosure extracts include geo fields joined from the current assessor table, for all the records that could be matched by property id. 
+
+### 4. Sales transaction data filtering
+
+In January 2015 we implemented a detailed analysis and filtering of the sales table in order to isolate true market-rate sales, with valid price-per-square-foot and without duplication. Please refer to the linked Word document for more info.
+
+Filtered transaction records have been saved to the a new database table called `sales_clean`, which includes all sales fields, several assessor fields for convenience (`use_code_std`, `sa_sqft`, `sa_x_coord`, `sa_y_coord`, `sa_geo_qlty_code`), and some new custom fields: 
+
+• `ucb_geo_id`: 11-character concatenation of the state, county, and census tract FIPS codes  
+• `ucb_price_sqft`: price per square foot in nominal dollars  
+• `ucb_price_sqft_adj`: price per square foot adjusted to 2010 dollars using national headline CPI  
+• `ucb_condo_subdiv_flag`: marks a single record saved from a multi-property transaction  
+• `ucb_condo_subdiv_sqft`: combined square footage from a multi-property transaction  
