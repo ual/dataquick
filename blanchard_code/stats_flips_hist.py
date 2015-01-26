@@ -22,7 +22,7 @@ cur = conn.cursor() # Define cursor
 
 ##Define SQL selection query
 t0 = time.time() #Start time index
-cur.execute("""SELECT ucb_geo_id, sr_date_transfer, (sr_date_transfer/10000) AS sr_year, sr_property_id FROM master.sales LEFT JOIN master.assessor ON sa_property_id = sr_property_id WHERE sales.mm_fips_muni_code IN (1,13,41,55,75,81,85,95,97) AND substring(use_code_std from 1 for 1) = 'R' AND sr_arms_length_flag = '1' AND (sr_date_transfer/10000) >= 1988 AND (sr_date_transfer/10000) <= 2014; """)
+cur.execute("""SELECT ucb_geo_id, sr_date_transfer, (sr_date_transfer/10000) AS sr_year, sr_property_id FROM master.sales_clean; """)
 out = cur.fetchall() #Set returned queried data to 'out' dataframe
 print int(time.time()-t0), 'sec. for postgres' #End time index
 print 'postgres selection complete'
