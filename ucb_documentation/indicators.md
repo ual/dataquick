@@ -222,7 +222,7 @@ For all residential properties. Start with `sa_site_mail_same` field from curren
 Count of residential properties that were sold 2 or more times within 2 years. Filter for arms-length transactions.  
 
 **Output**  
-• Output is in `stats_flips_20150127.csv` based on the new, more thorough data cleaning removing same day transactions
+• Output is in `stats_flips_20150127.csv` based on the new, more thorough data cleaning removing same day transactions  
 • Based on `sr_date_transfer` field in sales table  
 • One column per year from 1988 to 2014  
 • Values are the count of 2 or more residential property sale transactions that took place within 2 years for the year of transaction  
