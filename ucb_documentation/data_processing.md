@@ -28,10 +28,12 @@ Code is in the shell scripts named `extract_*.sh` under `maurer_code` in this re
 
 In January 2015 we implemented a detailed analysis and filtering of the sales table in order to isolate true market-rate sales, with valid price-per-square-foot and without duplication. [Please refer to the linked Word document for more info.](https://github.com/ual/dataquick/blob/master/ucb_documentation/Dataquick%20Cleaning%202015-01-14.docx?raw=true)
 
-Filtered transaction records have been saved to the a new database table called `sales_clean`, which includes all sales fields, several assessor fields for convenience (`use_code_std`, `sa_sqft`, `sa_x_coord`, `sa_y_coord`, `sa_geo_qlty_code`), and some new custom fields: 
+Filtered transaction records have been saved to the a new database table called `sales_clean_res`, which includes all sales fields, several assessor fields for convenience (`use_code_std`, `sa_sqft`, `sa_x_coord`, `sa_y_coord`, `sa_geo_qlty_code`), and some new custom fields: 
 
 • `ucb_geo_id`: 11-character concatenation of the state, county, and census tract FIPS codes  
 • `ucb_price_sqft`: price per square foot in nominal dollars  
 • `ucb_price_sqft_adj`: price per square foot adjusted to 2010 dollars using national headline CPI  
 • `ucb_condo_subdiv_flag`: marks a single record saved from a multi-property transaction  
 • `ucb_condo_subdiv_sqft`: combined square footage from a multi-property transaction  
+
+There is another table called `sales_clean_nonres` for nonresidential transactions. We used idential criteria, except for skipping the price outliers filter.
