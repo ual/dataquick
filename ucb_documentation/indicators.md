@@ -88,6 +88,9 @@ For residential and commercial properties separately. Filter for arms-length tra
 **Update 1-14-2015**  
 • Updated `stats_sales_residential_20150114.csv` based on the new, more thorough data cleaning
 
+**Update 1-31-2015**  
+• Updated `stats_sales_commercial_20150131.csv` as well
+
 **Next steps**  
 • None
 
