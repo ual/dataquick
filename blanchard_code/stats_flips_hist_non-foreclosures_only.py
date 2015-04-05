@@ -22,7 +22,8 @@ cur = conn.cursor() # Define cursor
 
 ##Define SQL selection query
 t0 = time.time() #Start time index
-cur.execute("""SELECT ucb_geo_id, sr_date_transfer, (sr_date_transfer/10000) AS sr_year, sr_property_id FROM master.sales_clean_res; """)
+#cur.execute("""SELECT ucb_geo_id, sr_date_transfer, (sr_date_transfer/10000) AS sr_year, sr_property_id FROM master.sales_clean_res; """)
+cur.execute("""SELECT s.ucb_geo_id, s.sr_date_transfer, (s.sr_date_transfer/10000) AS sr_year, s.sr_property_id FROM master.sales_clean_res as s left outer join master.foreclosure as f on s.sr_property_id = f.sa_property_id where f.sa_property_id is null; """) # selects records in master.sales_clean_res that are not in the master.foreclosure table by selecting records that do not join to the two tables
 out = cur.fetchall() #Set returned queried data to 'out' dataframe
 print int(time.time()-t0), 'sec. for postgres' #End time index
 print 'postgres selection complete'
