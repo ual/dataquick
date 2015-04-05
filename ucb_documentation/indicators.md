@@ -236,7 +236,7 @@ Count of residential properties that were sold 2 or more times within 1 year. Fi
 • Updated `stats_flips_20150127.csv` based on the new, more thorough data cleaning
 
 **Update 4-05-2015**  
-• Updated `stats_flips_20150405.csv` based on the new, more thorough data cleaning, sale transactions that took place within 1 year
+• Updated `stats_flips_20150405.csv` based on the new, more thorough data cleaning, sale transactions that took place within 1 year   
 • Updated `stats_flips_20150405_non-foreclosures_only.csv` based on the new, more thorough data cleaning, sale transactions that took place within 1 year, and non-foreclosures only
 
 **Next steps**  
