@@ -253,7 +253,10 @@ Count of specific 4 digit residential to residential use code changes and broad 
 • Based on `use_code_std` field in assessor table  
 • One column per use code type change and year from 2006 to 2011  
 • Values are the count of residential properties that have changed the specified use code from one year to the next  
-• Code is in `stats_usecode_hist.py`  
+• Code is in `stats_usecode_hist_broad.py` and `stats_usecode_hist_R4digit.py`    
+
+**Update 12-07-2014**  
+• Updated code and table to isolate broad and R4 digit use changes  
 
 **Next steps**  
 • None
