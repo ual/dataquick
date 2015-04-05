@@ -160,7 +160,7 @@ print int(time.time()-t0), 'sec. for count' #End time index ---Takes about 21 mi
 ##########################################
 #Set output CSV path and filename
 t0 = time.time()
-outpath = 'C:/Users/Work/Desktop/Data/' #Output CSV path
+outpath = '../output/' #Output CSV path
 today = datetime.date.today() #Todays run date
 today_str = today.strftime('%Y%m%d') #Convert date format to string in format yearmonthday
 outfilename = 'stats_flips_' + today_str + '.csv' #Output CSV file name with todays run date

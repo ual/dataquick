@@ -12,7 +12,7 @@ cur = conn.cursor()
 try:
 	cur.execute('''
 
-	CREATE TABLE master.sales_clean
+	CREATE TABLE master.sales_clean_nonres
 	(
 	  sr_unique_id integer NOT NULL,
 	  sr_property_id integer,
@@ -114,10 +114,10 @@ try:
 	  ucb_condo_subdiv_flag integer,
 	  ucb_condo_subdiv_sqft integer,
 
-	  CONSTRAINT sales_clean_pkey PRIMARY KEY (sr_unique_id)
+	  CONSTRAINT sales_clean_nonres_pkey PRIMARY KEY (sr_unique_id)
 	)			
 	''')
-	cur.execute("GRANT SELECT ON TABLE master.sales_clean TO dataquick_user;")
+	cur.execute("GRANT SELECT ON TABLE master.sales_clean_nonres TO dataquick_user;")
 	conn.commit()
 except:
 	pass
@@ -157,7 +157,7 @@ WITH sales_base AS (
         AND a.sa_sqft IS NOT null
         AND a.sa_sqft > 0
         AND a.use_code_std <> ''
-        AND SUBSTRING(a.use_code_std FROM 1 FOR 1) = 'R'
+        AND SUBSTRING(a.use_code_std FROM 1 FOR 1) != 'R'
         AND (s.sr_tran_type = 'R'
             OR s.sr_tran_type = 'S')
         AND s.sr_buyer NOT ILIKE '% trust%'
@@ -255,7 +255,7 @@ sales_extended2 AS (
 )
 
 INSERT INTO
-	master.sales_clean
+	master.sales_clean_nonres
 	
 SELECT 
 	sr_unique_id, sr_property_id, sr_scm_id, mm_state_code, mm_muni_name, mm_fips_state_code, mm_fips_muni_code, mm_fips_county_name, sr_parcel_nbr_raw, sr_site_addr_raw, sr_mail_addr_raw, sr_mail_house_nbr, sr_mail_fraction, sr_mail_dir, sr_mail_street_name, sr_mail_suf, sr_mail_post_dir, sr_mail_unit_pre, sr_mail_unit_val, sr_mail_city, sr_mail_state, sr_mail_zip, sr_mail_plus_4, sr_mail_crrt, sr_lgl_dscrptn, sr_lgl_keyed_block, sr_lgl_keyed_lot, sr_lgl_keyed_plat_book, sr_lgl_keyed_plat_page, sr_lgl_keyed_range, sr_lgl_keyed_section, sr_lgl_keyed_sub_name, sr_lgl_keyed_township, sr_lgl_keyed_tract, sr_lgl_keyed_unit, sr_buyer, sr_seller, sr_val_transfer, sr_tax_transfer, sr_doc_nbr_raw, sr_doc_nbr_fmt, sr_date_transfer, sr_date_filing, sr_doc_type, sr_deed_type, sr_tran_type, sr_quitclaim, sr_arms_length_flag, sr_full_part_code, sr_mult_apn_flag_keyed, sr_mult_port_code, sr_lndr_seller_flag, sr_td_doc_nbr_1, sr_loan_id_1, sr_loan_id_1_ext, sr_loan_val_1, sr_loan_type_1, sr_int_rate_type_1, sr_lndr_credit_line_1, sr_lndr_code_1, sr_lndr_first_name_1, sr_lndr_last_name_1, sr_lender_type_1, sr_td_doc_nbr_2, sr_loan_id_2, sr_loan_id_2_ext, sr_loan_val_2, sr_loan_type_2, sr_int_rate_type_2, sr_lndr_credit_line_2, sr_lndr_code_2, sr_lndr_first_name_2, sr_lndr_last_name_2, sr_lender_type_2, sr_td_doc_nbr_3, sr_loan_id_3, sr_loan_id_3_ext, sr_loan_val_3, sr_loan_type_3, sr_int_rate_type_3, sr_lndr_code_3, sr_lndr_credit_line_3, sr_lndr_first_name_3, sr_lndr_last_name_3, sr_lender_type_3, distress_indicator, process_id,
@@ -274,20 +274,10 @@ SELECT
 	
 FROM 
     sales_extended2
-WHERE
-	(mm_fips_muni_code = 1 AND ucb_price_sqft_adj < 1054)
-	OR (mm_fips_muni_code = 13 AND ucb_price_sqft_adj < 794)
-	OR (mm_fips_muni_code = 41 AND ucb_price_sqft_adj < 1788)
-	OR (mm_fips_muni_code = 55 AND ucb_price_sqft_adj < 1577)
-	OR (mm_fips_muni_code = 75 AND ucb_price_sqft_adj < 2014)
-	OR (mm_fips_muni_code = 81 AND ucb_price_sqft_adj < 1773)
-	OR (mm_fips_muni_code = 85 AND ucb_price_sqft_adj < 1354)
-	OR (mm_fips_muni_code = 95 AND ucb_price_sqft_adj < 729)
-	OR (mm_fips_muni_code = 97 AND ucb_price_sqft_adj < 1260)
 
 ''')
 conn.commit()
-cur.execute("SELECT count(*) FROM master.sales_clean")
+cur.execute("SELECT count(*) FROM master.sales_clean_nonres")
 print "rows //", cur.fetchone()[0]
 print "minutes //", round((time.time() - t0)*1.0/60, 2)
 
@@ -295,25 +285,25 @@ print "minutes //", round((time.time() - t0)*1.0/60, 2)
 # Add some indexes
 
 t0 = time.time()
-cur.execute("CREATE INDEX sales_clean_fips_index ON master.sales_clean " +
+cur.execute("CREATE INDEX sales_clean_nonres_fips_index ON master.sales_clean_nonres " +
 			" USING btree (mm_fips_muni_code);")
 conn.commit()
-print "sales_clean_fips_index", round(time.time() - t0)
+print "sales_clean_nonres_fips_index", round(time.time() - t0)
 
 t0 = time.time()
-cur.execute("CREATE INDEX sales_clean_property_index ON master.sales_clean " +
+cur.execute("CREATE INDEX sales_clean_nonres_property_index ON master.sales_clean_nonres " +
 			"USING btree (sr_property_id);")
 conn.commit()
-print "sales_clean_property_index", round(time.time() - t0)
+print "sales_clean_nonres_property_index", round(time.time() - t0)
 
 t0 = time.time()
-cur.execute("CREATE INDEX sales_clean_date_index ON master.sales_clean " +
+cur.execute("CREATE INDEX sales_clean_nonres_date_index ON master.sales_clean_nonres " +
 			"USING btree (sr_date_transfer);")
 conn.commit()
-print "sales_clean_date_index", round(time.time() - t0)
+print "sales_clean_nonres_date_index", round(time.time() - t0)
 
 t0 = time.time()
-cur.execute("CREATE INDEX sales_clean_geo_index ON master.sales_clean " +
+cur.execute("CREATE INDEX sales_clean_nonres_geo_index ON master.sales_clean_nonres " +
 			"USING btree (ucb_geo_id);")
 conn.commit()
-print "sales_clean_geo_index", round(time.time() - t0)
+print "sales_clean_nonres_geo_index", round(time.time() - t0)

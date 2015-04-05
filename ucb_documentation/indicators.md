@@ -88,6 +88,9 @@ For residential and commercial properties separately. Filter for arms-length tra
 **Update 1-14-2015**  
 • Updated `stats_sales_residential_20150114.csv` based on the new, more thorough data cleaning
 
+**Update 1-31-2015**  
+• Updated `stats_sales_commercial_20150131.csv` as well
+
 **Next steps**  
 • None
 
@@ -219,14 +222,22 @@ For all residential properties. Start with `sa_site_mail_same` field from curren
 ==========
 #### G. Property flips
 
-Count of residential properties that were sold 2 or more times within 2 years. Filter for arms-length transactions.  
+Count of residential properties that were sold 2 or more times within 1 year. Filter for arms-length transactions. Includes two versions: (1) all properties including foreclosed properties and (2) only non-foreclosed properties.  
 
 **Output**  
-• Output is in `stats_flips_20141119.csv`  
+• Output (1) is in `stats_flips_20150405.csv` based on the new, more thorough data cleaning removing same day transactions, includes foreclosed properties   
+• Output (2) is in `stats_flips_20150405_non-foreclosures_only.csv` based on the new, more thorough data cleaning removing same day transactions,  only non-foreclosed properties   
 • Based on `sr_date_transfer` field in sales table  
 • One column per year from 1988 to 2014  
-• Values are the count of 2 or more residential property sale transactions that took place within 2 years for the year of transaction  
-• Code is in `stats_flips_hist.py`  
+• Values are the count of 2 or more residential property sale transactions that took place within 1 year for the year of transaction. Non-foreclosure property defined as property id does not exist in the foreclosure table.  
+• Code is in `stats_flips_hist.py` and `stats_flips_hist_non-foreclosures_only.py`   
+
+**Update 1-27-2015**  
+• Updated `stats_flips_20150127.csv` based on the new, more thorough data cleaning   
+
+**Update 4-05-2015**  
+• Updated `stats_flips_20150405.csv` based on the new, more thorough data cleaning, sale transactions that took place within 1 year   
+• Updated `stats_flips_20150405_non-foreclosures_only.csv` based on the new, more thorough data cleaning, sale transactions that took place within 1 year, and non-foreclosures only   
 
 **Next steps**  
 • None
@@ -242,7 +253,10 @@ Count of specific 4 digit residential to residential use code changes and broad 
 • Based on `use_code_std` field in assessor table  
 • One column per use code type change and year from 2006 to 2011  
 • Values are the count of residential properties that have changed the specified use code from one year to the next  
-• Code is in `stats_usecode_hist.py`  
+• Code is in `stats_usecode_hist_broad.py` and `stats_usecode_hist_R4digit.py`    
+
+**Update 12-07-2014**  
+• Updated code and table to isolate broad and R4 digit use changes  
 
 **Next steps**  
 • None
