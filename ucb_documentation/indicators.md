@@ -222,14 +222,22 @@ For all residential properties. Start with `sa_site_mail_same` field from curren
 ==========
 #### G. Property flips
 
-Count of residential properties that were sold 2 or more times within 2 years. Filter for arms-length transactions.  
+Count of residential properties that were sold 2 or more times within 1 year. Filter for arms-length transactions. Includes two versions: (1) all properties including foreclosed properties and (2) only non-foreclosed properties.  
 
 **Output**  
-• Output is in `stats_flips_20150127.csv` based on the new, more thorough data cleaning removing same day transactions  
+• Output (1) is in `stats_flips_20150405.csv` based on the new, more thorough data cleaning removing same day transactions, includes foreclosed properties 
+• Output (2) is in `stats_flips_20150405_non-foreclosures_only.csv` based on the new, more thorough data cleaning removing same day transactions,  only non-foreclosed properties
 • Based on `sr_date_transfer` field in sales table  
 • One column per year from 1988 to 2014  
-• Values are the count of 2 or more residential property sale transactions that took place within 2 years for the year of transaction  
-• Code is in `stats_flips_hist.py`  
+• Values are the count of 2 or more residential property sale transactions that took place within 1 year for the year of transaction. Non-foreclosure property defined as property id does not exist in the foreclosure table.  
+• Code is in `stats_flips_hist.py` and `stats_flips_hist_non-foreclosures_only.py`   
+
+**Update 1-27-2015**  
+• Updated `stats_flips_20150127.csv` based on the new, more thorough data cleaning
+
+**Update 4-05-2015**  
+• Updated `stats_flips_20150405.csv` based on the new, more thorough data cleaning, sale transactions that took place within 1 year
+• Updated `stats_flips_20150405_non-foreclosures_only.csv` based on the new, more thorough data cleaning, sale transactions that took place within 1 year, and non-foreclosures only
 
 **Next steps**  
 • None
