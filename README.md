@@ -1,43 +1,26 @@
 dataquick
 =========
 
-Code for parsing and analytics of the Dataquick assessor and sales data
+Code for parsing and analytics of Dataquick assessor and sales data
+
+#### Update, Feb. 2018
+
+This repository documents data parsing and analysis performed in 2014-15. None of the database servers referenced are live anymore. 
 
 **Additional documentation**  
 • [Indicators](https://github.com/ual/dataquick/blob/master/ucb_documentation/indicators.md)  
 • [Data processing procedures](https://github.com/ual/dataquick/blob/master/ucb_documentation/data_processing.md)
 
 =========
-#### Project background
-
-We obtained a large dataset of parcel and sales transaction records from Dataquick, covering the entire state of California and going back 10 to 25+ years. The data was purchased by the California Air Resources Board (ARB) for research we are performing on their behalf about residential displacement that’s linked to transit-oriented development.
 
 **Contacts**  
-• Miriam Zuk, project manager – `mzuk@berkeley.edu`  
-• Sam Maurer, performed the initial data parsing – `maurer@berkeley.edu`  
-• Courtney Smith, ARB contact – `cesmith@arb.ca.gov`  
-• Christopher LaPage, Dataquick account manager – `clapage@dataquick.com`  
-• Juan Qui, Dataquick fulfillment contact – `jqui@dataquick.com`  
+• Miriam Zuk, project lead – `mzuk@berkeley.edu`  
+• Sam Maurer, code – `maurer@berkeley.edu`  
 
-**Documentation from Dataquick**  
+**Documentation from the data vendor**  
 • "Layout" spreadsheets with database schema information  
 • "Totals Report" spreadsheets with record counts by county  
 • "Catalog/Data Dictionary" spreadsheet with more detailed field definitions  
-• These are available from Box or FTP (see below)  
-
-=========
-#### Ways to access the data
-
-1. Data is in Postgres on the UAL Tehran server  
-• URL: `tehran.ual.berkeley.edu`  
-• databse: `dataquick`, schema: `master` for the master version of the data tables  
-• login: `dataquick_user`, password: `ucbdq`  
-• original tables: `assessor`, `sales`, `ahist`, `foreclosure`  
-• custom tables: `sales_clean_res`, `sales_clean_nonres`  
-2. Raw data files and CSV county extracts are in a shared folder on Box (contact Miriam Zuk for access)
-3. Raw data files are also available from Dataquick by FTP  
-• URL: `ftp.dataquick.com`  
-• login: `ucbrkly`, password: `2a3jsv13`
 
 =========
 #### Contents of raw data files
